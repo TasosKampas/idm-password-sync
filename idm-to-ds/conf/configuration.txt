@@ -1,0 +1,74 @@
+Provisioner:
+"userPassword" : {
+    "type" : "string",
+    "nativeName" : "__PASSWORD__",
+    "nativeType" : "JAVA_TYPE_GUARDEDSTRING",
+    "flags" : [
+        "NOT_READABLE",
+        "NOT_RETURNED_BY_DEFAULT"
+    ],
+    "runAsUser" : true
+},
+
+ManagedUser:
+"password" : {
+    "title" : "Password",
+    "description" : "Password",
+    "type" : "string",
+    "viewable" : false,
+    "searchable" : false,
+    "userEditable" : true,
+    "encryption" : {
+        "purpose": "idm.password.encryption"
+    },
+    "scope" : "private",
+    "isProtected": true,
+    "usageDescription" : "",
+    "isPersonal" : false,
+    "policies" : [
+        {
+            "policyId" : "minimum-length",
+            "params" : {
+                "minLength" : 8
+            }
+        },
+        {
+            "policyId" : "at-least-X-capitals",
+            "params" : {
+                "numCaps" : 1
+            }
+        },
+        {
+            "policyId" : "at-least-X-numbers",
+            "params" : {
+                "numNums" : 1
+            }
+        },
+        {
+            "policyId" : "cannot-contain-others",
+            "params" : {
+                "disallowedFields" : [
+                    "userName",
+                    "givenName",
+                    "sn"
+                ]
+            }
+        }
+    ]
+},
+
+sync.json:
+{
+    "target" : "userPassword",
+    "source" : "password",
+    "transform" : {
+        "type" : "text/javascript",
+        "globals" : { },
+        "source" : "openidm.decrypt(source);"
+    },
+    "condition" : {
+        "type" : "text/javascript",
+        "globals" : { },
+        "file" : "conditionalscripts/password.js"
+    }
+}

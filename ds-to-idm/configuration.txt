@@ -1,0 +1,2 @@
+Use the DS Synchronization Plugin: 
+https://backstage.forgerock.com/docs/idm/7.2/pwd-plugin-guide/chap-sync-dj.html 

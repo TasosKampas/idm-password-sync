@@ -1,0 +1,25 @@
+Provisioner:
+"userPassword" : {
+    "type" : "string",
+    "nativeName" : "userPassword",
+    "nativeType" : "string",
+    "flags" : [ ],
+    "runAsUser" : true,
+    "required" : false
+},
+
+sync.json:
+{
+    "target" : "userPassword",
+    "source" : "userPassword",
+    "transform" : {
+        "type" : "text/javascript",
+        "globals" : { },
+        "file" : "transformation/userPassword-transform.js"
+    },
+    "condition" : {
+        "type" : "text/javascript",
+        "globals" : { },
+        "file" : "conditionalscripts/userPassword.js"
+    }
+},
